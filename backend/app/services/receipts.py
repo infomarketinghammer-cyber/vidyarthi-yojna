@@ -4,13 +4,13 @@ Receipt numbers follow the Indian financial year (April–March):
     VY/2026-27/000001
 """
 from datetime import date, datetime, timezone
+from pathlib import Path
 from typing import Any, Dict
 
 from fpdf import FPDF
 from pymongo import ReturnDocument
 from pymongo.asynchronous.database import AsyncDatabase
 
-from app.core.config import settings
 from app.db.collections import Collections
 
 NAVY = (163, 7, 74)    # brand magenta #a3074a (name kept from the old palette)
@@ -18,6 +18,7 @@ TEAL = (47, 122, 23)   # accent leaf green #2f7a17
 SLATE = (71, 85, 105)
 
 FOUNDATION_NAME = "Make Earth Happy Foundation"
+LOGO_PATH = Path(__file__).resolve().parents[1] / "assets" / "logo-sm.png"
 
 METHOD_LABELS = {"upi": "UPI", "netbanking": "Net banking", "card": "Card", "wallet": "Wallet / other"}
 
@@ -115,10 +116,11 @@ def render_receipt(donation: Dict[str, Any]) -> bytes:
     pdf.set_text_color(255, 255, 255)
     pdf.set_xy(15, 11)
     pdf.set_font("Helvetica", "B", 22)
-    pdf.cell(w, 10, settings.APP_NAME)
+    pdf.cell(w - 42, 10, "Shidori")
     pdf.set_xy(15, 22)
     pdf.set_font("Helvetica", "", 10)
-    pdf.cell(w, 6, f"{FOUNDATION_NAME} - meal support for students from drought-hit farming families")
+    pdf.cell(w - 42, 6, f"{FOUNDATION_NAME} - meal support for students from drought-hit farming families")
+    pdf.image(str(LOGO_PATH), x=pdf.w - 49, y=7, w=34, h=23)
 
     # Title + number
     pdf.set_text_color(*NAVY)

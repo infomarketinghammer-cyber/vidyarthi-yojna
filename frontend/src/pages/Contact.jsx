@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 
 import DonateBank from '../components/DonateBank'
-import { BrandIcon, ORG, SocialLinks, WHATSAPP_ICON } from '../components/SocialLinks'
+import { ORG, SocialLinks } from '../components/SocialLinks'
 
 const inputClass =
   'mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100'
@@ -47,16 +47,6 @@ export default function Contact() {
               ))}
             </ul>
           </div>
-
-          <a
-            href={ORG.whatsappGroup}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-lg bg-accent-600 px-4 py-2 font-medium text-white hover:bg-accent-700"
-          >
-            <BrandIcon path={WHATSAPP_ICON} />
-            {t('contact.whatsapp')}
-          </a>
 
           <div>
             <h3 className="mb-2 text-sm font-medium text-slate-500">{t('social.title')}</h3>

@@ -1,11 +1,8 @@
 /** Angholichi Goli (Bath Pill), Pune — the founders' first organisation; details from https://angholichigoli.org/ */
 export const ORG = {
   website: 'https://angholichigoli.org/',
-  whatsappGroup: 'https://angholichigoli.org/contact-us/',
-  emails: ['angholichigoli@gmail.com', 'angholichigolimumbai@gmail.com'],
+  emails: ['help.shidori@gmail.com'],
   phones: [
-    { name: 'Avinash Patil', number: '8080171430' },
-    { name: 'Tushar Warang', number: '9969294302' },
     { name: 'Madhav Patil', number: '7720923510' },
   ],
 }
