@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
+import PhoneVerification from '../../components/auth/PhoneVerification'
 import SignupSteps from '../../components/student/SignupSteps'
 import StudentDetailsFields, { EMPTY_DETAILS, detailsPayload } from '../../components/student/StudentDetailsFields'
 import FormField, { Alert } from '../../components/ui/FormField'
@@ -18,6 +19,7 @@ export default function Register() {
   const navigate = useNavigate()
 
   const [form, setForm] = useState(EMPTY)
+  const [phoneToken, setPhoneToken] = useState('')
   const [error, setError] = useState('')
   const [submitting, setSubmitting] = useState(false)
 
@@ -31,6 +33,7 @@ export default function Register() {
 
     const phone = normalizeMobile(form.phone)
     if (!phone) return setError(t('auth.invalidPhone'))
+    if (!phoneToken) return setError(t('auth.otp.verifyFirst'))
     if (form.password.length < 8) return setError(t('auth.passwordTooShort'))
     if (form.password !== form.confirmPassword) return setError(t('auth.passwordMismatch'))
 
@@ -47,7 +50,13 @@ export default function Register() {
         role: 'student',
         preferred_language: i18n.resolvedLanguage?.split('-')[0] || 'mr',
         student_details: studentDetails,
+        phone_token: phoneToken,
       })
+      try {
+        sessionStorage.setItem('vy_just_registered', '1')
+      } catch {
+        /* storage unavailable — the welcome banner is a nice-to-have */
+      }
       // Students continue to sections 2 and 3 via the onboarding route guard
       navigate(`/${u.role}`, { replace: true })
     } catch (err) {
@@ -69,23 +78,8 @@ export default function Register() {
         <form onSubmit={onSubmit} className="mt-6 space-y-4">
           <Alert>{error}</Alert>
           <FormField label={t('auth.fullName')} name="name" autoComplete="name" required minLength={2} value={form.name} onChange={onChange} />
-          <div className="grid gap-4 sm:grid-cols-2">
-            <FormField
-              label={t('auth.phone')}
-              type="tel"
-              inputMode="numeric"
-              name="phone"
-              autoComplete="tel-national"
-              prefix="+91"
-              placeholder="98765 43210"
-              maxLength={14}
-              required
-              hint={t('auth.phoneHint')}
-              value={form.phone}
-              onChange={onChange}
-            />
-            <FormField label={t('auth.emailOptional')} type="email" name="email" autoComplete="email" value={form.email} onChange={onChange} />
-          </div>
+          <PhoneVerification value={form.phone} onChange={onChange} token={phoneToken} onVerified={setPhoneToken} />
+          <FormField label={t('auth.emailOptional')} type="email" name="email" autoComplete="email" value={form.email} onChange={onChange} />
           <StudentDetailsFields form={form} onChange={onChange} />
           <FormField
             label={t('auth.password')}

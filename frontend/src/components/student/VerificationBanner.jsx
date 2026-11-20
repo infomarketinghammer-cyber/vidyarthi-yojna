@@ -9,8 +9,8 @@ const REASON_STEP = {
   aadhaar_mismatch: 'documents',
   bank_statement_unclear: 'documents',
   bank_details_mismatch: 'documents',
+  enrollment_proof_unclear: 'documents',
   mess_details: 'expenses',
-  abhyasika_details: 'expenses',
   personal_details: 'personal',
 }
 

@@ -47,6 +47,12 @@ export const getHealth = () => api.get('/health').then((res) => res.data)
 // Auth
 export const loginRequest = (payload) => api.post('/auth/login', payload).then((res) => res.data)
 export const registerRequest = (payload) => api.post('/auth/register', payload).then((res) => res.data)
+export const sendOtp = (phone) => api.post('/auth/otp/send', { phone })
+export const verifyOtp = (phone, code) => api.post('/auth/otp/verify', { phone, code }).then((res) => res.data)
+// Online donations (Razorpay) — open to donors without an account
+export const createDonationOrder = (payload) => api.post('/donations/online/order', payload).then((res) => res.data)
+export const verifyDonationPayment = (payload) => api.post('/donations/online/verify', payload).then((res) => res.data)
+export const donationReceiptUrl = (id, token) => `${api.defaults.baseURL}/donations/online/${id}/receipt?token=${encodeURIComponent(token)}`
 export const getMe = () => api.get('/auth/me').then((res) => res.data)
 
 // Student sign-up sections (file uploads take a FormData)
@@ -57,6 +63,7 @@ export const readAadhaar = (formData) =>
   api.post('/students/me/aadhaar/read', formData, { timeout: 120000 }).then((res) => res.data)
 export const saveAadhaar = (payload) => api.put('/students/me/aadhaar', payload).then((res) => res.data)
 export const saveBank = (formData) => api.put('/students/me/bank', formData).then((res) => res.data)
+export const saveEnrollmentProof = (formData) => api.put('/students/me/enrollment-proof', formData).then((res) => res.data)
 export const saveExpenses = (formData) => api.put('/students/me/expenses', formData).then((res) => res.data)
 export const getStudentDocument = (id) =>
   api.get(`/students/me/documents/${id}`, { responseType: 'blob' }).then((res) => res.data)
@@ -75,6 +82,7 @@ export const getMyDonations = () => api.get('/donations/me').then((res) => res.d
 export const downloadReceipt = (id) => downloadBlob(`/donations/${id}/receipt`, {}, 'receipt.pdf')
 
 // Admin
+export const getAdminOverview = () => api.get('/admin/overview').then((res) => res.data)
 export const getAdminStats = () => api.get('/admin/stats').then((res) => res.data)
 export const getAdminUsers = (params) => api.get('/admin/users', { params }).then((res) => res.data)
 export const createUserAsAdmin = (payload) => api.post('/admin/users', payload).then((res) => res.data)
@@ -89,6 +97,7 @@ export const getDocumentAsAdmin = (id) =>
   api.get(`/admin/documents/${id}`, { responseType: 'blob' }).then((res) => res.data)
 
 export const getAdminDonations = (params) => api.get('/admin/donations', { params }).then((res) => res.data)
+export const emailDonationReceipt = (id) => api.post(`/admin/donations/${id}/email-receipt`).then((res) => res.data)
 export const exportDonations = (format, params) => downloadExport('/admin/donations/export', format, params)
 export const getAdminDonors = (params) => api.get('/admin/donors', { params }).then((res) => res.data)
 export const exportDonors = (format, params) => downloadExport('/admin/donors/export', format, params)

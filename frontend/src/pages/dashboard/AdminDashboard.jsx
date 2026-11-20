@@ -1,13 +1,14 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import AdminOverview from '../../components/dashboard/AdminOverview'
 import AdminTabs from '../../components/dashboard/AdminTabs'
 import DashboardHeader from '../../components/dashboard/DashboardHeader'
 import { EligibilityOverview } from '../../components/dashboard/EligibilityAdmin'
 import ImpactHome from '../../components/home/ImpactHome'
 import FormField, { Alert, SuccessNote, inputClass } from '../../components/ui/FormField'
 import { ROLES } from '../../context/AuthContext'
-import { createUserAsAdmin, getAdminStats, getAdminUsers } from '../../services/api'
+import { createUserAsAdmin, getAdminUsers } from '../../services/api'
 import { apiErrorMessage } from '../../utils/apiError'
 import { normalizeMobile } from '../../utils/validators'
 
@@ -15,7 +16,6 @@ const EMPTY_FORM = { name: '', phone: '', email: '', password: '', role: 'admin'
 
 export default function AdminDashboard() {
   const { t, i18n } = useTranslation()
-  const [stats, setStats] = useState(null)
   const [users, setUsers] = useState([])
   const [roleFilter, setRoleFilter] = useState('')
   const [error, setError] = useState('')
@@ -27,11 +27,8 @@ export default function AdminDashboard() {
 
   const load = useCallback(() => {
     setError('')
-    Promise.all([getAdminStats(), getAdminUsers(roleFilter ? { role: roleFilter } : {})])
-      .then(([s, u]) => {
-        setStats(s)
-        setUsers(u)
-      })
+    getAdminUsers(roleFilter ? { role: roleFilter } : {})
+      .then(setUsers)
       .catch((err) => setError(apiErrorMessage(err, t)))
   }, [roleFilter, t])
 
@@ -67,17 +64,9 @@ export default function AdminDashboard() {
     <div className="space-y-8">
       <AdminTabs />
       <DashboardHeader />
+      <AdminOverview />
       <ImpactHome />
       <Alert>{error}</Alert>
-
-      <section className="grid gap-4 sm:grid-cols-3">
-        {ROLES.map((role) => (
-          <div key={role} className="rounded-xl border border-slate-200 bg-white p-5">
-            <p className="text-sm text-slate-500">{t(`admin.count.${role}`)}</p>
-            <p className="mt-1 text-3xl font-bold text-brand-700">{stats ? stats[role] : '—'}</p>
-          </div>
-        ))}
-      </section>
 
       <EligibilityOverview />
 

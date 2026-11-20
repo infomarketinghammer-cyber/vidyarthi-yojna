@@ -17,7 +17,7 @@ const STATUS_STYLES = {
 export default function StudentProfileDetails({ profile, fetchDocument, editLink, onError, showContact = false }) {
   const { t, i18n } = useTranslation()
   const lang = i18n.language
-  const { personal, aadhaar, bank, expenses } = profile
+  const { personal, aadhaar, bank, enrollment_proof: enrollmentProof, expenses } = profile
 
   const viewDoc = (id) => openBlobInNewTab(() => fetchDocument(id)).catch((err) => onError?.(apiErrorMessage(err, t)))
   const DocButton = ({ id, label }) =>
@@ -94,6 +94,17 @@ export default function StudentProfileDetails({ profile, fetchDocument, editLink
           )}
         </Panel>
 
+        <Panel title={t('enrollmentProof.title')}>
+          {enrollmentProof ? (
+            <>
+              <Row label={t('enrollmentProof.type')} value={t(`enrollmentProof.types.${enrollmentProof.proof_type}`)} />
+              <DocButton id={enrollmentProof.document_id} label={t('studentProfile.viewEnrollmentProof')} />
+            </>
+          ) : (
+            <Missing />
+          )}
+        </Panel>
+
         <Panel title={t('signup.step.expenses')}>
           {expenses ? (
             <>
@@ -101,25 +112,7 @@ export default function StudentProfileDetails({ profile, fetchDocument, editLink
                 label={t('expenses.messTitle')}
                 value={expenses.mess.uses_mess ? `${expenses.mess.name} · ${formatRupees(expenses.mess.monthly_bill, lang)}` : t('expenses.notUsing')}
               />
-              <Row
-                label={t('expenses.abhyasikaTitle')}
-                value={
-                  expenses.abhyasika.uses_abhyasika
-                    ? `${expenses.abhyasika.name} · ${formatRupees(expenses.abhyasika.monthly_fee, lang)}`
-                    : t('expenses.notUsing')
-                }
-              />
-              <Row
-                label={t('expenses.total')}
-                value={formatRupees(
-                  (expenses.mess.uses_mess ? expenses.mess.monthly_bill : 0) + (expenses.abhyasika.uses_abhyasika ? expenses.abhyasika.monthly_fee : 0),
-                  lang,
-                )}
-              />
-              <div className="flex flex-wrap gap-3">
-                <DocButton id={expenses.mess.receipt_document_id} label={t('studentProfile.viewMessReceipt')} />
-                <DocButton id={expenses.abhyasika.receipt_document_id} label={t('studentProfile.viewAbhyasikaReceipt')} />
-              </div>
+              <DocButton id={expenses.mess.receipt_document_id} label={t('studentProfile.viewMessReceipt')} />
             </>
           ) : (
             <Missing />

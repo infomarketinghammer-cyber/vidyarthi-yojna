@@ -4,17 +4,18 @@ import { useTranslation } from 'react-i18next'
 
 import AadhaarSection from '../../components/student/AadhaarSection'
 import BankSection from '../../components/student/BankSection'
+import EnrollmentProofSection from '../../components/student/EnrollmentProofSection'
 import ExpensesStep from '../../components/student/ExpensesStep'
 import PersonalStep from '../../components/student/PersonalStep'
 import SignupSteps, { SIGNUP_STEPS } from '../../components/student/SignupSteps'
-import { Alert } from '../../components/ui/FormField'
+import { Alert, SuccessNote } from '../../components/ui/FormField'
 import { useAuth } from '../../context/AuthContext'
 import { getStudentProfile, saveBank } from '../../services/api'
 import { apiErrorMessage } from '../../utils/apiError'
 
 const stepsDone = (p) => ({
   personal: Boolean(p.sections_complete?.personal),
-  documents: Boolean(p.sections_complete?.aadhaar && p.sections_complete?.bank),
+  documents: Boolean(p.sections_complete?.aadhaar && p.sections_complete?.bank && p.sections_complete?.enrollment_proof),
   expenses: Boolean(p.sections_complete?.expenses),
 })
 
@@ -28,6 +29,18 @@ export default function StudentOnboarding() {
   const [profile, setProfile] = useState(null)
   const [step, setStep] = useState(null)
   const [loadError, setLoadError] = useState('')
+  const [justRegistered, setJustRegistered] = useState(false)
+
+  useEffect(() => {
+    try {
+      if (sessionStorage.getItem('vy_just_registered')) {
+        setJustRegistered(true)
+        sessionStorage.removeItem('vy_just_registered')
+      }
+    } catch {
+      /* storage unavailable — skip the welcome banner */
+    }
+  }, [])
 
   useEffect(() => {
     getStudentProfile()
@@ -65,6 +78,12 @@ export default function StudentOnboarding() {
       <h1 className="text-2xl font-bold text-brand-700">{t('onboarding.title')}</h1>
       <p className="mt-1 text-slate-600">{t('onboarding.subtitle')}</p>
 
+      {justRegistered && (
+        <div className="mt-4">
+          <SuccessNote>{t('onboarding.accountCreated', { name: user.name })}</SuccessNote>
+        </div>
+      )}
+
       <div className="mt-6">
         <SignupSteps current={step} done={done} onSelect={setStep} />
       </div>
@@ -86,6 +105,7 @@ export default function StudentOnboarding() {
               proofRequired
               existingProofId={profile.bank?.statement_document_id}
             />
+            <EnrollmentProofSection existing={profile.enrollment_proof} onSaved={(p) => onSaved(p)} />
             <button
               type="button"
               disabled={!done.documents}

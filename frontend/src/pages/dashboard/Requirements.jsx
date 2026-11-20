@@ -11,7 +11,7 @@ const PAGE_SIZE = 25
 const EMPTY_FILTERS = { search: '', taluka: '', district: '' }
 
 /**
- * Admin: monthly requirement (mess bill + abhyasika fee) of every accepted
+ * Admin: monthly requirement (mess bill) of every accepted
  * student — eligible for the scheme AND verified by an admin.
  */
 export default function Requirements() {
@@ -107,7 +107,7 @@ export default function Requirements() {
       <Alert>{error}</Alert>
 
       {/* Totals */}
-      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <section className="grid gap-4 sm:grid-cols-3">
         <div className="rounded-xl bg-brand-gradient p-5 text-white shadow-sm">
           <p className="text-sm text-white/80">{t('requirements.totalMonthly')}</p>
           <p className="mt-1 text-3xl font-bold">{s ? rupees(s.total) : '—'}</p>
@@ -118,11 +118,6 @@ export default function Requirements() {
           label={t('requirements.messTotal')}
           value={s ? rupees(s.mess) : '—'}
           hint={s ? t('requirements.usingCount', { count: s.mess_users, formatted: formatNumber(s.mess_users, lang) }) : ''}
-        />
-        <Stat
-          label={t('requirements.abhyasikaTotal')}
-          value={s ? rupees(s.abhyasika) : '—'}
-          hint={s ? t('requirements.usingCount', { count: s.abhyasika_users, formatted: formatNumber(s.abhyasika_users, lang) }) : ''}
         />
       </section>
 
@@ -146,7 +141,6 @@ export default function Requirements() {
                   <th className="px-4 py-2 font-medium">{t('directory.col.name')}</th>
                   <th className="px-4 py-2 font-medium">{t('directory.col.taluka')}</th>
                   <th className="px-4 py-2 font-medium">{t('requirements.col.mess')}</th>
-                  <th className="px-4 py-2 font-medium">{t('requirements.col.abhyasika')}</th>
                   <th className="px-4 py-2 text-right font-medium">{t('requirements.col.total')}</th>
                   <th className="px-4 py-2 font-medium">{t('requirements.col.bank')}</th>
                 </tr>
@@ -172,16 +166,6 @@ export default function Requirements() {
                         <span className="text-slate-400">{t('expenses.notUsing')}</span>
                       )}
                     </td>
-                    <td className="px-4 py-2">
-                      {r.abhyasika_monthly_fee ? (
-                        <>
-                          {rupees(r.abhyasika_monthly_fee)}
-                          <span className="block text-xs text-slate-500">{r.abhyasika_name}</span>
-                        </>
-                      ) : (
-                        <span className="text-slate-400">{t('expenses.notUsing')}</span>
-                      )}
-                    </td>
                     <td className="px-4 py-2 text-right font-semibold text-brand-700">{rupees(r.monthly_total)}</td>
                     <td className="px-4 py-2 text-xs">
                       <span className="block text-slate-700">{r.bank_name}</span>
@@ -193,7 +177,7 @@ export default function Requirements() {
                 ))}
                 {!loading && data?.items.length === 0 && (
                   <tr>
-                    <td colSpan={6} className="px-4 py-10 text-center text-slate-500">
+                    <td colSpan={5} className="px-4 py-10 text-center text-slate-500">
                       {t('requirements.empty')}
                     </td>
                   </tr>
@@ -206,7 +190,6 @@ export default function Requirements() {
                       {t('requirements.totalRow', { count: s.students, formatted: formatNumber(s.students, lang) })}
                     </td>
                     <td className="px-4 py-2">{rupees(s.mess)}</td>
-                    <td className="px-4 py-2">{rupees(s.abhyasika)}</td>
                     <td className="px-4 py-2 text-right text-brand-700">{rupees(s.total)}</td>
                     <td />
                   </tr>

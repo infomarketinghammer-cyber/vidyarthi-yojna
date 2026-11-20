@@ -11,8 +11,8 @@ export const CORRECTION_REASONS = [
   'aadhaar_mismatch',
   'bank_statement_unclear',
   'bank_details_mismatch',
+  'enrollment_proof_unclear',
   'mess_details',
-  'abhyasika_details',
   'personal_details',
   'other',
 ]

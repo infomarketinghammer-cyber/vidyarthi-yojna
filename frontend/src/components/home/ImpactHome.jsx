@@ -57,15 +57,9 @@ export default function ImpactHome({ showDonate = false }) {
         </div>
       </section>
 
-      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <section className="grid gap-4 sm:grid-cols-2">
         <Card label={t('home2.cards.students')} value={count(impact?.students_supported)} hint={impact ? t('home2.cards.studentsHint', { count: impact.students_registered, formatted: count(impact.students_registered) }) : ''} />
         <Card label={t('home2.cards.monthlyNeed')} value={rupees(impact?.monthly_need)} hint={t('home2.cards.monthlyNeedHint')} highlight />
-        <Card label={t('home2.cards.mess')} value={rupees(impact?.mess_need)} hint={impact ? t('home2.cards.forStudents', { count: impact.mess_students, formatted: count(impact.mess_students) }) : ''} />
-        <Card
-          label={t('home2.cards.abhyasika')}
-          value={rupees(impact?.abhyasika_need)}
-          hint={impact ? t('home2.cards.forStudents', { count: impact.abhyasika_students, formatted: count(impact.abhyasika_students) }) : ''}
-        />
       </section>
 
       <section className="grid gap-4 sm:grid-cols-2">

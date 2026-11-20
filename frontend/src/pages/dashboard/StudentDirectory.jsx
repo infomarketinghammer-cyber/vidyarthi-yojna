@@ -175,8 +175,8 @@ export default function StudentDirectory() {
           <table className="w-full text-left text-sm">
             <thead className="bg-slate-50 text-slate-600">
               <tr>
-                {['name', 'mobile', 'age', 'taluka', 'college', 'mess', 'abhyasika', 'total', 'eligibility', 'verification', 'profile'].map((c) => (
-                  <th key={c} className={`whitespace-nowrap px-4 py-2 font-medium ${['age', 'mess', 'abhyasika', 'total'].includes(c) ? 'text-right' : ''}`}>
+                {['name', 'mobile', 'age', 'taluka', 'college', 'mess', 'total', 'eligibility', 'verification', 'profile'].map((c) => (
+                  <th key={c} className={`whitespace-nowrap px-4 py-2 font-medium ${['age', 'mess', 'total'].includes(c) ? 'text-right' : ''}`}>
                     {t(`directory.col.${c}`)}
                   </th>
                 ))}
@@ -197,7 +197,6 @@ export default function StudentDirectory() {
                     {s.course && <span className="block text-xs text-slate-500">{s.course}</span>}
                   </td>
                   <td className="px-4 py-2 text-right">{formatRupees(s.mess_monthly_bill, lang)}</td>
-                  <td className="px-4 py-2 text-right">{formatRupees(s.abhyasika_monthly_fee, lang)}</td>
                   <td className="px-4 py-2 text-right font-medium">{formatRupees(s.monthly_total, lang)}</td>
                   <td className="px-4 py-2">
                     <EligibilityBadge status={s.eligibility} />
@@ -218,7 +217,7 @@ export default function StudentDirectory() {
               ))}
               {!loading && data.items.length === 0 && (
                 <tr>
-                  <td colSpan={11} className="px-4 py-10 text-center text-slate-500">
+                  <td colSpan={10} className="px-4 py-10 text-center text-slate-500">
                     {t('directory.empty')}
                   </td>
                 </tr>

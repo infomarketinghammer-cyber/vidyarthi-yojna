@@ -63,10 +63,6 @@
     "donateCta": "Donate now",
     "facts": [
       {
-        "value": "₹3,000–3,500",
-        "label": "proposed meal support per student, every month"
-      },
-      {
         "value": "Pune & PCMC",
         "label": "where we begin — students preparing for MPSC, UPSC and other exams"
       },
@@ -76,7 +72,11 @@
       },
       {
         "value": "All of Maharashtra",
-        "label": "Vidarbha, Marathwada, Western Maharashtra, Khandesh and Konkan"
+        "label": "for needy students from drought-hit talukas — Vidarbha, Marathwada, Western Maharashtra, Khandesh and Konkan"
+      },
+      {
+        "value": "₹3,000–3,500",
+        "label": "proposed meal support per student, every month"
       }
     ],
     "meaning": {
@@ -107,7 +107,27 @@
     "donate": {
       "title": "Add a mouthful to their journey",
       "body": "Help pay for one student's meals for a day or a month. Small and large contributions from entrepreneurs, professionals, organisations and citizens together can support many students.",
-      "trust": "Every donation is properly accounted for and used transparently."
+      "trust": "Every donation is properly accounted for and used transparently.",
+      "imageAlt": "A stacked steel tiffin box (dabba) packed with home-cooked food"
+    },
+    "team": {
+      "title": "Behind Shidori",
+      "shilpakar": {
+        "name": "Hemant Gavande",
+        "role": "Chairman & Managing Director — Greenovation Projects Pvt. Ltd. | BrickFour",
+        "body": "Hemant Gavande built his career in real estate through consistent hard work, discipline and experience. Alongside his business success, he has placed equal importance on social responsibility — through his association with organisations such as the Chafekar Smarak Samiti, Anandwan and Chinmaya Mission, mentoring young people, and taking part in environmental conservation efforts. It is this same commitment to combining professional success with meaningful social contribution that has driven his key role in shaping the idea of Shidori and building the initiative.",
+        "link": "View LinkedIn profile"
+      },
+      "madhav": {
+        "name": "Madhav Patil",
+        "role": "Founder — Angholichi Goli",
+        "body": "Realising how precious every drop of water is during a water crisis, Madhav Patil started the innovative Angholichi Goli initiative. He spread the simple idea that small changes in daily habits can save water — a movement that soon grew beyond water conservation alone, bringing people together through initiatives like Nail-Free Tree, environmental conservation and Mama's Village (Mamacha Gavala Jauya). At the heart of his work has been connecting people through small actions and driving positive change through collective participation. That same spirit of social responsibility and public participation has carried into shaping and building Shidori."
+      },
+      "angholichigoli": {
+        "name": "Angholichi Goli (Bath Pill)",
+        "body": "Active since 2015, Angholichi Goli is a people's movement for water conservation, environmental protection and building social responsibility among citizens — from saving water to planting and protecting trees. Through initiatives like #NailFreeTree, #PainFreeTree and climate action, it drives positive environmental change through public participation, while also supporting the education of students from drought-hit farming families in Marathwada and Vidarbha. It also runs 'Mama's Village' (Mamacha Gavala Jauya), reconnecting people with nature.",
+        "link": "Visit angholichigoli.org"
+      }
     },
     "foundation": {
       "title": "Run by Make Earth Happy Foundation",
@@ -146,12 +166,25 @@
     "adminNote": "Admin accounts are created by an existing administrator.",
     "identifier": "Mobile number or email",
     "phone": "Mobile number",
-    "phoneHint": "You will use this number to log in",
     "emailOptional": "Email (optional)",
     "invalidPhone": "Enter a valid 10-digit mobile number",
     "emailRequired": "Email is required",
     "loginHeading": "Log in",
-    "loginSubtitleShared": "Students log in with their mobile number; the administrator with their email."
+    "loginSubtitleShared": "Students log in with their mobile number; the administrator with their email.",
+    "otp": {
+      "send": "Send OTP",
+      "resend": "Resend OTP",
+      "resendIn": "Resend in {{seconds}}s",
+      "change": "Change number",
+      "hint": "You will use this number to log in. We will send a 6-digit code by SMS to verify it.",
+      "sentTo": "We sent a 6-digit code to {{phone}}. It is valid for 10 minutes.",
+      "codeLabel": "Enter the code",
+      "verify": "Verify",
+      "verifying": "Verifying…",
+      "verified": "Mobile number verified",
+      "enterCode": "Enter the 6-digit code from the SMS",
+      "verifyFirst": "Please verify your mobile number with the OTP before continuing"
+    }
   },
   "dashboard": {
     "welcome": "Welcome, {{name}}",
@@ -285,11 +318,11 @@
       }
     },
     "images": {
-      "farmer": "A farmer standing in his field",
+      "farmer": "An elderly farmer standing in a dried-up field",
       "drought": "Dry, cracked earth in a drought",
-      "meals": "A Maharashtrian thali with pav, misal and vegetables",
+      "meals": "A stacked steel tiffin box (dabba) packed with home-cooked food",
       "logo": "The Shidori logo — a student studying, a farmer and a tiffin box",
-      "student": "A student reading in a library"
+      "student": "A boy writing in his notebook on the floor of a modest home"
     },
     "founders": {
       "title": "About the founders",
@@ -353,8 +386,9 @@
       "invalid_dob": "Enter a valid date of birth",
       "taluka_required": "Enter your taluka and district",
       "statement_required": "Please upload your bank statement",
+      "enrollment_proof_required": "Please upload a proof of enrollment (ID card, marksheet or admit card)",
+      "invalid_proof_type": "Choose a valid document type",
       "mess_details_required": "Enter your mess name and monthly bill",
-      "abhyasika_details_required": "Enter your abhyasika name and monthly fee",
       "invalid_amount": "Enter a valid amount in rupees"
     },
     "upload": {
@@ -381,7 +415,21 @@
       "invalid_upi": "Enter a valid UPI ID, e.g. name@bank",
       "bank_required": "Choose your bank",
       "invalid_card": "Choose the card type and enter the last 4 digits of the card",
-      "profile_incomplete": "Please add your bank and PAN details before donating"
+      "profile_incomplete": "Please add your bank and PAN details before donating",
+      "online_unavailable": "Online payment is not available right now. Please use a bank transfer instead.",
+      "payment_failed": "We could not confirm this payment. If money was deducted, please contact us with the payment ID.",
+      "no_email": "This donation has no email address",
+      "email_unavailable": "Email is not set up yet. Add the SMTP settings in the server configuration.",
+      "email_failed": "The receipt email could not be sent. Please try again later."
+    },
+    "otp": {
+      "too_soon": "Please wait {{seconds}} seconds before asking for a new code",
+      "too_many": "Too many codes were requested for this number. Please try again in an hour.",
+      "send_failed": "The code could not be sent by SMS. Please check the number and try again.",
+      "invalid_code": "The code is incorrect. Please check the SMS and try again.",
+      "expired": "This code has expired. Please ask for a new code.",
+      "too_many_attempts": "Too many wrong codes. Please ask for a new code.",
+      "not_verified": "Please verify your mobile number with the code sent by SMS"
     }
   },
   "common": {
@@ -398,14 +446,15 @@
   "onboarding": {
     "title": "Complete your registration",
     "subtitle": "Three short sections. You can come back and finish later.",
+    "accountCreated": "✓ Your account has been created, {{name}}! Let's finish setting up your profile.",
     "privacy": "Your Aadhaar and bank details are stored encrypted and are only used to verify your identity and send scholarship payments.",
     "fileUploaded": "✓ File already uploaded — choose a new file only to replace it",
     "saving": "Saving…",
     "saveAndContinue": "Save and continue",
     "finish": "Save and finish",
     "saved": "Saved",
-    "continueToExpenses": "Continue to section 3: Mess & abhyasika",
-    "saveBothFirst": "Save your Aadhaar card and bank details to continue"
+    "continueToExpenses": "Continue to section 3: Mess",
+    "saveBothFirst": "Save your Aadhaar card, bank details and proof of enrollment to continue"
   },
   "studentProfile": {
     "title": "My profile",
@@ -417,16 +466,16 @@
     "update": "Update details",
     "viewAadhaar": "View Aadhaar card",
     "viewStatement": "View bank statement",
+    "viewEnrollmentProof": "View proof of enrollment",
     "viewMessReceipt": "View mess receipt",
-    "viewAbhyasikaReceipt": "View abhyasika receipt",
     "notSubmitted": "Not submitted yet"
   },
   "signup": {
     "sectionN": "Section {{n}}",
     "step": {
       "personal": "Basic details",
-      "documents": "Aadhaar & bank",
-      "expenses": "Mess & abhyasika",
+      "documents": "Aadhaar, bank & ID",
+      "expenses": "Mess",
       "account": "Account details",
       "bankPan": "Bank & PAN"
     },
@@ -521,6 +570,18 @@
     "donorDesc": "Your bank account details, used for donation records and any refunds.",
     "donorProof": "Cancelled cheque or passbook (optional)"
   },
+  "enrollmentProof": {
+    "title": "Proof of enrollment",
+    "desc": "Upload your college ID card, latest marksheet or exam admit card to confirm you're currently enrolled.",
+    "type": "Document type",
+    "types": {
+      "id_card": "College / institute ID card",
+      "marksheet": "Latest marksheet",
+      "admit_card": "Exam admit card"
+    },
+    "file": "Upload document",
+    "save": "Save proof of enrollment"
+  },
   "expenses": {
     "messTitle": "Monthly mess bill",
     "messDesc": "Where you take your meals and how much you pay each month.",
@@ -529,13 +590,6 @@
     "address": "Address",
     "monthlyBill": "Monthly bill",
     "messReceipt": "Mess bill / receipt (optional)",
-    "abhyasikaTitle": "Abhyasika (study place)",
-    "abhyasikaDesc": "The study room / library where you study and its monthly fee.",
-    "usesAbhyasika": "I study at an abhyasika",
-    "abhyasikaName": "Abhyasika name",
-    "monthlyFee": "Monthly fee",
-    "abhyasikaReceipt": "Fee receipt (optional)",
-    "total": "Total per month",
     "notUsing": "Not using"
   },
   "directory": {
@@ -561,7 +615,6 @@
       "taluka": "Taluka",
       "college": "College",
       "mess": "Mess / month",
-      "abhyasika": "Abhyasika / month",
       "total": "Total",
       "profile": "Registration",
       "eligibility": "Eligibility",
@@ -624,8 +677,8 @@
       "aadhaar_mismatch": "Details entered do not match your Aadhaar card",
       "bank_statement_unclear": "Bank statement is unclear or incomplete",
       "bank_details_mismatch": "Bank details do not match the bank statement",
+      "enrollment_proof_unclear": "Enrollment proof is unclear, incomplete or expired",
       "mess_details": "Mess details are incorrect or incomplete",
-      "abhyasika_details": "Abhyasika details are incorrect or incomplete",
       "personal_details": "Basic details are incorrect or incomplete",
       "other": "Other — see the note"
     },
@@ -665,12 +718,11 @@
   },
   "requirements": {
     "title": "Requirements of accepted students",
-    "subtitle": "Students who are eligible for the scheme and verified — their monthly mess bill and abhyasika fee.",
+    "subtitle": "Students who are eligible for the scheme and verified — their monthly mess bill.",
     "totalMonthly": "Total requirement / month",
     "averagePerStudent": "Average {{amount}} per student",
     "acceptedStudents": "Accepted students",
     "messTotal": "Mess bills / month",
-    "abhyasikaTotal": "Abhyasika fees / month",
     "usingCount_one": "{{formatted}} student",
     "usingCount_other": "{{formatted}} students",
     "studentsCount_one": "{{formatted}} student",
@@ -681,7 +733,6 @@
     "empty": "No accepted students yet. Students appear here once they are eligible and verified.",
     "col": {
       "mess": "Mess / month",
-      "abhyasika": "Abhyasika / month",
       "total": "Total / month",
       "bank": "Bank (for payment)"
     }
@@ -744,7 +795,6 @@
       "name": "Student",
       "amount": "Amount to pay"
     },
-    "breakdown": "Mess {{mess}} + Abhyasika {{abhyasika}}",
     "pay": "Pay",
     "notEnoughShort": "Not enough money left — add funds first",
     "allPaid": "Everyone has been paid for {{month}}.",
@@ -773,24 +823,20 @@
   "home2": {
     "kicker": "Shidori",
     "title": "Helping students eat well and study well",
-    "about": "Many students from rural Vidarbha, Marathwada and Palghar move to cities to study. Shidori helps eligible students aged 18–24 pay their monthly mess bill and abhyasika (study room) fee, so money never stands between them and their education.",
+    "about": "Many students from rural Vidarbha, Marathwada and Palghar move to cities to study. Shidori helps eligible students aged 18–24 pay their monthly mess bill, so money never stands between them and their education.",
     "point1": "Every student is verified with Aadhaar and bank documents",
     "point2": "Money is paid directly into the student's bank account every month",
     "point3": "Every rupee donated is recorded with a receipt",
     "appealTitle": "Your help makes a difference",
-    "appealBody": "{{students}} students currently need {{amount}} every month for meals and a place to study. Any amount helps — donate today.",
-    "appealBodyGeneric": "Students need help every month for meals and a place to study. Any amount helps — donate today.",
+    "appealBody": "{{students}} students currently need {{amount}} every month for meals. Any amount helps — donate today.",
+    "appealBodyGeneric": "Students need help every month for meals. Any amount helps — donate today.",
     "donateNow": "Donate now",
     "cards": {
       "students": "Students supported",
       "studentsHint_one": "{{formatted}} student registered",
       "studentsHint_other": "{{formatted}} students registered",
       "monthlyNeed": "Needed every month",
-      "monthlyNeedHint": "Mess bills + abhyasika fees",
-      "mess": "Mess bills / month",
-      "abhyasika": "Abhyasika fees / month",
-      "forStudents_one": "for {{formatted}} student",
-      "forStudents_other": "for {{formatted}} students",
+      "monthlyNeedHint": "Mess bills",
       "raised": "Raised from donors",
       "donationsCount_one": "{{formatted}} donation",
       "donationsCount_other": "{{formatted}} donations",
@@ -807,7 +853,8 @@
     "methods": {
       "upi": "UPI",
       "netbanking": "Net banking",
-      "card": "Credit / debit card"
+      "card": "Credit / debit card",
+      "wallet": "Wallet / other"
     },
     "payTo": "Pay to",
     "payToUpi": "UPI ID",
@@ -851,7 +898,15 @@
       "reference": "Reference"
     },
     "empty": "No donations found",
-    "noneForDonor": "This donor has not donated yet."
+    "noneForDonor": "This donor has not donated yet.",
+    "emailReceipt": "Email receipt",
+    "emailing": "Sending…",
+    "emailSent": "Receipt emailed to {{email}}",
+    "emailStatus": {
+      "sent": "Receipt emailed",
+      "failed": "Receipt email failed",
+      "not_configured": "Receipt not emailed (email not set up)"
+    }
   },
   "social": {
     "title": "Social media"
@@ -896,5 +951,69 @@
         "waiting": "After the checks above"
       }
     }
+  },
+  "donatePage": {
+    "title": "Donate to Shidori",
+    "subtitle": "Every rupee you give feeds a student from a drought-hit farming family while they study in Pune and PCMC. You can transfer directly to our bank account, or donate online below.",
+    "onlineTitle": "Donate online",
+    "onlineBody": "Fill in your details for the donation receipt, then pay securely by UPI, card or net banking.",
+    "steps": {
+      "details": "Your details",
+      "payment": "Payment"
+    },
+    "fields": {
+      "name": "Full name",
+      "address": "Address",
+      "pan": "PAN card number",
+      "phone": "Mobile number",
+      "email": "Email address",
+      "amount": "Donation amount"
+    },
+    "panHint": "Printed on your donation receipt for tax purposes",
+    "emailHint": "We will contact you about your donation here",
+    "otherAmount": "Other amount",
+    "amountHint": "₹3,500 covers one student's meals for a month.",
+    "continue": "Continue to payment",
+    "youAreDonating": "You are donating",
+    "pay": "Pay {{amount}}",
+    "processing": "Processing…",
+    "edit": "Edit details",
+    "secureNote": "Payments are processed securely by Razorpay. We never see your card details or UPI PIN.",
+    "checkoutDescription": "Donation to Make Earth Happy Foundation",
+    "failed": "The payment did not go through. {{reason}} Please try again.",
+    "checkoutLoadFailed": "The payment window could not be opened. Please check your internet connection and try again.",
+    "thanks": "Thank you, {{name}}!",
+    "thanksBody": "Your donation of {{amount}} has been received. It will go towards meals for our students.",
+    "receiptNo": "Receipt number",
+    "paymentId": "Payment ID",
+    "downloadReceipt": "Download receipt (PDF)",
+    "backHome": "Back to home",
+    "errors": {
+      "name": "Enter your full name",
+      "address": "Enter your full address",
+      "email": "Enter a valid email address",
+      "amount": "Enter an amount of at least ₹1"
+    },
+    "receiptEmailed": "Your receipt has also been emailed to {{email}}. Please check your spam folder if you do not see it in a few minutes."
+  },
+  "adminOverview": {
+    "students": "Number of students",
+    "donors": "Number of donors",
+    "amountReceived": "Amount received",
+    "donationsCount_one": "from {{formatted}} donation",
+    "donationsCount_other": "from {{formatted}} donations",
+    "applicationStatus": "Application status",
+    "genderWise": "Gender wise",
+    "talukaWise": "Taluka wise",
+    "status": {
+      "approved": "Approved",
+      "review": "Under review",
+      "action": "Correction needed",
+      "incomplete": "Application incomplete",
+      "not_eligible": "Not eligible"
+    },
+    "notGiven": "Not given",
+    "talukaMissing": "Aadhaar not added yet",
+    "noStudents": "No students have registered yet."
   }
 }

@@ -8,6 +8,7 @@ import { useAuth } from '../../context/AuthContext'
 const NAV_ITEMS = [
   { to: '/', key: 'nav.home', end: true },
   { to: '/about', key: 'nav.about' },
+  { to: '/donate', key: 'nav.donate' },
   { to: '/contact', key: 'nav.contact' },
 ]
 

@@ -88,11 +88,11 @@ py -3.11 -m venv .venv          # Windows; use python3.11 on macOS/Linux
 .venv\Scripts\activate          # Windows  (source .venv/bin/activate on macOS/Linux)
 pip install -r requirements.txt
 copy .env.example .env          # cp on macOS/Linux
-uvicorn app.main:app --reload --host 0.0.0.0 --port 5000
+uvicorn app.main:app --reload --host 0.0.0.0 --port 5001
 ```
-Open the website at http://localhost:5000. The backend API is available under
-`/api/v1`, with interactive docs at http://localhost:5000/docs and health at
-http://localhost:5000/api/v1/health.
+Open the website at http://localhost:5001. The backend API is available under
+`/api/v1`, with interactive docs at http://localhost:5001/docs and health at
+http://localhost:5001/api/v1/health.
 
 ### Frontend development mode (optional)
 ```bash
@@ -100,7 +100,7 @@ cd frontend
 npm install
 npm run dev
 ```
-For hot reload, leave the backend running on port 5000 and open
+For hot reload, leave the backend running on port 5001 and open
 http://localhost:5173. Vite proxies `/api` requests to the backend.
 
 ## Demo accounts
@@ -139,8 +139,8 @@ All demo documents (Aadhaar, PAN, bank statement) are dummy images clearly marke
 | Section | What the student provides | API |
 |---|---|---|
 | 1. Basic details | Name, mobile (login), email (optional), gender, parent/guardian, college, course, year, password | `POST /auth/register` with `student_details`; edit via `PUT /students/me/personal` |
-| 2. Aadhaar & bank | Aadhaar card upload → **DOB (age) and taluka read automatically**, student confirms; bank details + bank statement upload | `POST /students/me/aadhaar/read` → `PUT /students/me/aadhaar`; `PUT /students/me/bank` |
-| 3. Mess & abhyasika | Monthly mess bill and abhyasika (study place) fee, name, address, optional receipts | `PUT /students/me/expenses` |
+| 2. Aadhaar, bank & ID | Aadhaar card upload → **DOB (age) and taluka read automatically**, student confirms; bank details + bank statement upload; proof of enrollment (ID card, marksheet or admit card) | `POST /students/me/aadhaar/read` → `PUT /students/me/aadhaar`; `PUT /students/me/bank`; `PUT /students/me/enrollment-proof` |
+| 3. Mess | Monthly mess bill, name, address, optional receipt | `PUT /students/me/expenses` |
 
 Students must complete all three sections before the dashboard opens (`/student/onboarding`). Every update resets `verification_status` to `pending`.
 
@@ -159,7 +159,7 @@ Students must complete all three sections before the dashboard opens (`/student/
 - The student sees the outcome on their dashboard: under review, verified, or needs correction (with the reasons, the note, and a button that opens the right section).
 - When the student changes any section afterwards, the status goes back to *pending* automatically, and the admin sees "Updated by student".
 
-**Requirements** (`/admin/requirements`): every **accepted** student (eligible **and** verified) with their monthly mess bill + abhyasika fee.
+**Requirements** (`/admin/requirements`): every **accepted** student (eligible **and** verified) with their monthly mess bill.
 - Shows the total and average requirement, a per-district breakdown, and bank details (masked) for payment.
 - Filter by search, district or taluka.
 - Export to Excel (with a totals row and a "By district" sheet) or CSV.
@@ -173,7 +173,7 @@ Students must complete all three sections before the dashboard opens (`/student/
 **Home page & donations**
 - Donors (`/donor`) and admins (`/admin`) land on a home page with:
   - what the scheme does and an appeal to donate,
-  - live cards: students supported, monthly need (mess + abhyasika), amount raised, amount paid out.
+  - live cards: students supported, monthly need (mess), amount raised, amount paid out.
   - API: `GET /impact` (aggregates only, no student data).
 - **Donate** (`/donor/donate`): choose an amount, then UPI / net banking / card (for cards only the last 4 digits are kept), plus an optional transaction reference.
   - The donation is *recorded* (no gateway yet) and gets a receipt number like `VY/2026-27/000001` (Indian financial year).

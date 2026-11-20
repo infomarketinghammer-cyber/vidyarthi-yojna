@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
+import { ORG } from '../components/SocialLinks'
+
 const STEP_ICONS = ['📝', '🔍', '🍱']
 
 export default function Home() {
@@ -25,7 +27,7 @@ export default function Home() {
             <Link to="/register" className="rounded-lg bg-brand-gradient px-6 py-3 font-semibold text-white shadow-sm transition hover:brightness-110">
               {t('home.cta')}
             </Link>
-            <Link to="/about#donate" className="rounded-lg bg-white/95 px-6 py-3 font-semibold text-brand-700 shadow-sm transition hover:bg-white">
+            <Link to="/donate" className="rounded-lg bg-white/95 px-6 py-3 font-semibold text-brand-700 shadow-sm transition hover:bg-white">
               {t('home.donateCta')}
             </Link>
           </div>
@@ -85,27 +87,65 @@ export default function Home() {
         </Link>
       </section>
 
-      {/* Appeal to donors, over a home-cooked thali */}
-      <section className="grid overflow-hidden rounded-2xl bg-accent-50 shadow-sm md:grid-cols-2">
-        <img
-          src="/images/about/maharashtrian-thali.jpg"
-          alt={t('about.images.meals')}
-          loading="lazy"
-          className="h-64 w-full object-cover md:h-full"
-        />
-        <div className="p-6 sm:p-10">
+      {/* Appeal to donors, over a home-cooked meal */}
+      <section className="grid overflow-hidden rounded-2xl shadow-sm md:grid-cols-2">
+        <div className="flex items-center justify-center bg-white p-8">
+          <img
+            src="/images/chapati-bhaji.jpg"
+            alt={t('home.donate.imageAlt')}
+            loading="lazy"
+            className="h-64 w-auto object-contain md:h-80"
+          />
+        </div>
+        <div className="bg-accent-50 p-6 sm:p-10">
           <h2 className="text-2xl font-bold text-accent-700 sm:text-3xl">{t('home.donate.title')}</h2>
           <p className="mt-4 leading-relaxed text-slate-700">{t('home.donate.body')}</p>
           <p className="mt-3 text-sm text-slate-600">{t('home.donate.trust')}</p>
-          <Link to="/about#donate" className="mt-6 inline-block rounded-lg bg-accent-600 px-6 py-3 font-semibold text-white shadow-sm hover:bg-accent-700">
+          <Link to="/donate" className="mt-6 inline-block rounded-lg bg-accent-600 px-6 py-3 font-semibold text-white shadow-sm hover:bg-accent-700">
             {t('home.donateCta')}
           </Link>
         </div>
       </section>
 
+      {/* Behind Shidori: the people who shaped it, and the parent organisation */}
+      <section>
+        <h2 className="text-2xl font-bold text-brand-700 sm:text-3xl">{t('home.team.title')}</h2>
+        <div className="mt-6 grid gap-6 md:grid-cols-2">
+          <PersonCard
+            photo="/images/about/hemant-gavande.jpg"
+            name={t('home.team.shilpakar.name')}
+            role={t('home.team.shilpakar.role')}
+            body={t('home.team.shilpakar.body')}
+            link={{ href: 'https://www.linkedin.com/in/hemant-gavande-b4670461/', label: t('home.team.shilpakar.link') }}
+          />
+          <PersonCard
+            photo="/images/about/madhav-patil.jpg"
+            name={t('home.team.madhav.name')}
+            role={t('home.team.madhav.role')}
+            body={t('home.team.madhav.body')}
+          />
+        </div>
+
+        <div className="mt-6 flex flex-col items-center gap-4 rounded-2xl border border-slate-200 bg-white p-6 text-center shadow-sm sm:flex-row sm:text-left">
+          <img
+            src="/images/partners/angholichigoli-logo.png"
+            alt={t('home.team.angholichigoli.name')}
+            loading="lazy"
+            className="h-20 w-28 shrink-0 object-contain"
+          />
+          <div>
+            <p className="text-lg font-semibold text-slate-800">{t('home.team.angholichigoli.name')}</p>
+            <p className="mt-2 leading-relaxed text-slate-700">{t('home.team.angholichigoli.body')}</p>
+            <a href={ORG.website} target="_blank" rel="noopener noreferrer" className="mt-2 inline-block font-medium text-brand-600 hover:underline">
+              {t('home.team.angholichigoli.link')} ↗
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* Who runs Shidori */}
       <section className="flex flex-col gap-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8 md:flex-row md:items-center">
-        <img src="/images/about/farmer.jpg" alt={t('about.images.farmer')} loading="lazy" className="h-40 w-40 shrink-0 rounded-full object-cover shadow" />
+        <img src="/images/about/farmer-dry-field.jpg" alt={t('about.images.farmer')} loading="lazy" className="h-40 w-40 shrink-0 rounded-full object-cover object-[50%_60%] shadow" />
         <div>
           <h2 className="text-xl font-bold text-brand-700 sm:text-2xl">{t('home.foundation.title')}</h2>
           <p className="mt-2 leading-relaxed text-slate-700">{t('home.foundation.body')}</p>
@@ -114,6 +154,24 @@ export default function Home() {
           </Link>
         </div>
       </section>
+    </div>
+  )
+}
+
+function PersonCard({ photo, name, role, body, link }) {
+  return (
+    <div className="flex flex-col items-center gap-4 rounded-2xl border border-slate-200 bg-white p-6 text-center shadow-sm sm:flex-row sm:items-start sm:text-left">
+      <img src={photo} alt={name} loading="lazy" className="h-28 w-28 shrink-0 rounded-full object-cover shadow" />
+      <div>
+        <p className="text-lg font-semibold text-slate-800">{name}</p>
+        <p className="text-sm font-medium text-pink-600">{role}</p>
+        <p className="mt-2 leading-relaxed text-slate-700">{body}</p>
+        {link && (
+          <a href={link.href} target="_blank" rel="noopener noreferrer" className="mt-2 inline-block font-medium text-brand-600 hover:underline">
+            {link.label} ↗
+          </a>
+        )}
+      </div>
     </div>
   )
 }

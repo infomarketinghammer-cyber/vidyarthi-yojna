@@ -122,7 +122,6 @@ export default function Payments() {
                   </td>
                   <td className="px-4 py-3 text-right">
                     <span className="font-semibold text-brand-700">{rupees(s.amount)}</span>
-                    <span className="block text-xs text-slate-500">{t('payments.breakdown', { mess: rupees(s.mess), abhyasika: rupees(s.abhyasika) })}</span>
                   </td>
                   <td className="px-4 py-3 text-right">
                     <button

@@ -8,7 +8,7 @@ import { ORG, SocialLinks } from '../components/SocialLinks'
 // Story sections in reading order; each pairs a heading and paragraphs with a photo
 const STORY = [
   { key: 'drought', image: '/images/drought-landscape.jpg' },
-  { key: 'meals', image: '/images/about/maharashtrian-thali.jpg' },
+  { key: 'meals', image: '/images/about/simple-meal.jpg', contain: true },
   { key: 'idea', image: '/brand/logo.png', contain: true, imageKey: 'logo' },
 ]
 
@@ -51,7 +51,7 @@ export default function About() {
           <Paragraphs items={t('about.intro', { returnObjects: true })} />
         </div>
         <img
-          src="/images/about/farmer.jpg"
+          src="/images/about/farmer-dry-field.jpg"
           alt={t('about.images.farmer')}
           width="960"
           height="1200"
@@ -104,7 +104,7 @@ export default function About() {
       {/* Closing tagline over the student whose determination Shidori backs */}
       <section
         className="relative overflow-hidden rounded-2xl bg-slate-800 bg-cover bg-center shadow-sm"
-        style={{ backgroundImage: "url('/images/about/student-studying.jpg')" }}
+        style={{ backgroundImage: "url('/images/about/student-at-home.jpg')" }}
         role="img"
         aria-label={t('about.images.student')}
       >
@@ -117,9 +117,9 @@ export default function About() {
             <Link to="/register" className="rounded-lg bg-brand-gradient px-5 py-3 font-semibold text-white shadow-sm hover:brightness-110">
               {t('about.cta.student')}
             </Link>
-            <a href="#donate" className="rounded-lg bg-white px-5 py-3 font-semibold text-brand-700 shadow-sm hover:bg-brand-50">
+            <Link to="/donate" className="rounded-lg bg-white px-5 py-3 font-semibold text-brand-700 shadow-sm hover:bg-brand-50">
               {t('about.cta.donor')}
-            </a>
+            </Link>
           </div>
         </div>
       </section>

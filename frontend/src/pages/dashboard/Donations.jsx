@@ -2,17 +2,18 @@ import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import AdminTabs from '../../components/dashboard/AdminTabs'
-import { Alert, inputClass } from '../../components/ui/FormField'
-import { downloadReceipt, exportDonations, getAdminDonations } from '../../services/api'
+import { Alert, SuccessNote, inputClass } from '../../components/ui/FormField'
+import { downloadReceipt, emailDonationReceipt, exportDonations, getAdminDonations } from '../../services/api'
 import { apiErrorMessage } from '../../utils/apiError'
 import { formatDate, formatNumber, formatRupees } from '../../utils/format'
 
 const PAGE_SIZE = 25
-const METHODS = ['upi', 'netbanking', 'card']
+const METHODS = ['upi', 'netbanking', 'card', 'wallet']
 const METHOD_STYLE = {
   upi: 'bg-accent-50 text-accent-700',
   netbanking: 'bg-brand-50 text-brand-700',
   card: 'bg-amber-50 text-amber-800',
+  wallet: 'bg-slate-100 text-slate-700',
 }
 
 /** Admin: every donation with how it was paid, the reference and the receipt. */
@@ -28,6 +29,23 @@ export default function Donations() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [exporting, setExporting] = useState('')
+  const [emailing, setEmailing] = useState('')
+  const [notice, setNotice] = useState('')
+
+  const emailReceipt = async (d) => {
+    setError('')
+    setNotice('')
+    setEmailing(d.id)
+    try {
+      await emailDonationReceipt(d.id)
+      setNotice(t('adminDonations.emailSent', { email: d.email }))
+      setData((current) => ({ ...current, items: current.items.map((x) => (x.id === d.id ? { ...x, receipt_email: 'sent' } : x)) }))
+    } catch (err) {
+      setError(apiErrorMessage(err, t))
+    } finally {
+      setEmailing('')
+    }
+  }
 
   const params = useMemo(() => Object.fromEntries(Object.entries(filters).filter(([, v]) => v !== '')), [filters])
 
@@ -96,6 +114,7 @@ export default function Donations() {
       </div>
 
       <Alert>{error}</Alert>
+      <SuccessNote>{notice}</SuccessNote>
 
       {/* Totals by method — click to filter */}
       <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -177,6 +196,7 @@ export default function Donations() {
                   <td className="px-4 py-3">
                     <span className="font-medium text-slate-800">{d.donor_name}</span>
                     <span className="block text-xs text-slate-500">{[d.phone, d.email].filter(Boolean).join(' · ')}</span>
+                    {d.address && <span className="block max-w-xs text-xs text-slate-500">{d.address}</span>}
                     {d.pan && <span className="block font-mono text-xs text-slate-500">PAN {d.pan}</span>}
                   </td>
                   <td className="px-4 py-3 text-right font-semibold text-brand-700">{rupees(d.amount)}</td>
@@ -193,6 +213,21 @@ export default function Donations() {
                     >
                       ↓ {t('myDonations.receipt')}
                     </button>
+                    {d.email && (
+                      <button
+                        type="button"
+                        onClick={() => emailReceipt(d)}
+                        disabled={emailing === d.id}
+                        className="ml-2 rounded-lg border border-slate-300 px-3 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50 disabled:opacity-60"
+                      >
+                        ✉ {emailing === d.id ? t('adminDonations.emailing') : t('adminDonations.emailReceipt')}
+                      </button>
+                    )}
+                    {d.receipt_email && (
+                      <span className={`mt-1 block text-xs ${d.receipt_email === 'sent' ? 'text-accent-700' : 'text-amber-700'}`}>
+                        {t(`adminDonations.emailStatus.${d.receipt_email}`)}
+                      </span>
+                    )}
                   </td>
                 </tr>
               ))}
@@ -230,5 +265,6 @@ export function PaymentDetails({ method, details = {} }) {
   if (method === 'netbanking') text = details.bank_name
   if (method === 'card')
     text = `${details.card_type === 'credit' ? t('donate.credit') : t('donate.debit')} •••• ${details.card_last4}${details.card_network ? ` (${details.card_network})` : ''}`
+  if (method === 'wallet') text = details.wallet
   return <span className="mt-1 block text-xs text-slate-600">{text}</span>
 }
