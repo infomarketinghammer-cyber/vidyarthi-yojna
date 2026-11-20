@@ -113,14 +113,6 @@ export default function About() {
           <p className="text-sm font-semibold uppercase tracking-wide text-brand-200">{t('about.title')}</p>
           <h2 className="mt-3 text-3xl font-bold leading-tight text-white sm:text-4xl">{t('about.closing.tagline')}</h2>
           <p className="mt-4 text-lg leading-relaxed text-white/90">{t('about.closing.body')}</p>
-          <div className="mt-7 flex flex-wrap gap-3">
-            <Link to="/register" className="rounded-lg bg-brand-gradient px-5 py-3 font-semibold text-white shadow-sm hover:brightness-110">
-              {t('about.cta.student')}
-            </Link>
-            <Link to="/donate" className="rounded-lg bg-white px-5 py-3 font-semibold text-brand-700 shadow-sm hover:bg-brand-50">
-              {t('about.cta.donor')}
-            </Link>
-          </div>
         </div>
       </section>
 

@@ -23,14 +23,6 @@ export default function Home() {
           <p className="text-sm font-semibold uppercase tracking-wide text-brand-200">{t('app.name')}</p>
           <h1 className="mt-3 text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">{t('home.title')}</h1>
           <p className="mt-4 text-base leading-relaxed text-white/90 sm:text-lg">{t('home.subtitle')}</p>
-          <div className="mt-7 flex flex-wrap gap-3">
-            <Link to="/register" className="rounded-lg bg-brand-gradient px-6 py-3 font-semibold text-white shadow-sm transition hover:brightness-110">
-              {t('home.cta')}
-            </Link>
-            <Link to="/donate" className="rounded-lg bg-white/95 px-6 py-3 font-semibold text-brand-700 shadow-sm transition hover:bg-white">
-              {t('home.donateCta')}
-            </Link>
-          </div>
         </div>
       </section>
 
